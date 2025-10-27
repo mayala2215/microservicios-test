@@ -58,9 +58,22 @@ public class ClienteListener {
     private void actualizarCuenta(ClienteDTO cliente) {
         Cuenta cuenta = cuentaService.findById(cliente.getId());
         if (cuenta != null) {
-            cuenta.setClienteNombre(cliente.getNombre()); // 👈 actualiza nombre si cambió
+            cuenta.setClienteNombre(cliente.getNombre());
+            cuenta.setEstado(true);
             cuentaService.actualizarCuenta(cuenta.getNumeroCuenta(), cuenta);
             log.info("Cuenta actualizada para cliente: {}", cliente.getNombre());
+        } else {
+            throw new CustomException("No se encontró cuenta para el cliente con id: " + cliente.getId(),
+                    HttpStatus.NOT_FOUND);
+        }
+    }
+
+    private void eliminarCuenta(ClienteDTO cliente) {
+        Cuenta cuenta = cuentaService.findById(cliente.getId());
+        if (cuenta != null) {
+            cuenta.setEstado(false);
+            cuentaService.actualizarCuenta(cuenta.getNumeroCuenta(), cuenta);
+            log.info("Cuenta desactivada para cliente: {}", cliente.getNombre());
         } else {
             throw new CustomException("No se encontró cuenta para el cliente con id: " + cliente.getId(),
                     HttpStatus.NOT_FOUND);
