@@ -9,7 +9,6 @@ import com.banco.clientes.exception.CustomException;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import java.util.List;
 
 @Service
@@ -50,6 +49,7 @@ public class ClienteServiceImpl implements ClienteService {
         existente.setTelefono(cliente.getTelefono());
         existente.setContrasena(cliente.getContrasena());
         existente.setEstado(cliente.getEstado());
+        clienteProducer.enviarClienteActualizado(existente);
         return clienteRepository.save(existente);
     }
 
