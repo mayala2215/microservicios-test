@@ -34,6 +34,8 @@ public class ClienteListener {
                 crearCuenta(cliente);
             } else if ("ACTUALIZADO".equalsIgnoreCase(cliente.getEvento())) {
                 actualizarCuenta(cliente);
+            } else if ("ELIMINADO".equalsIgnoreCase(cliente.getEvento())) {
+                eliminarCuenta(cliente);
             } else {
                 log.warn("Evento desconocido: {}", cliente.getEvento());
             }
@@ -48,7 +50,7 @@ public class ClienteListener {
         cuenta.setNumeroCuenta("AC-" + System.currentTimeMillis());
         cuenta.setTipoCuenta("Ahorros");
         cuenta.setSaldoInicial(0.0);
-        cuenta.setEstado(true);
+        cuenta.setEstado(cliente.getEstado());
         cuenta.setClienteNombre(cliente.getNombre());
         cuenta.setIdCliente(cliente.getId());
         cuentaService.crearCuenta(cuenta);
@@ -59,7 +61,7 @@ public class ClienteListener {
         Cuenta cuenta = cuentaService.findById(cliente.getId());
         if (cuenta != null) {
             cuenta.setClienteNombre(cliente.getNombre());
-            cuenta.setEstado(true);
+            cuenta.setEstado(cliente.getEstado());
             cuentaService.actualizarCuenta(cuenta.getNumeroCuenta(), cuenta);
             log.info("Cuenta actualizada para cliente: {}", cliente.getNombre());
         } else {

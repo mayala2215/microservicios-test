@@ -67,8 +67,8 @@ public class CuentaServiceImpl implements CuentaService {
     }
 
     @Override
-    public Cuenta findByClienteNombre(String nombre) {
-        Cuenta cuenta = cuentaRepository.findByClienteNombre(nombre);
+    public List<Cuenta> findByClienteNombre(String nombre) {
+        List<Cuenta> cuenta = cuentaRepository.findByClienteNombre(nombre);
         if (cuenta == null) {
             throw new CustomException("No se encontró cuenta para el cliente: " + nombre, HttpStatus.NOT_FOUND);
         }

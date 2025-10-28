@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reportes")
+@RequestMapping("/api/reportes")
 public class ReporteController {
 
     private final ReporteService reporteService;
@@ -20,12 +20,12 @@ public class ReporteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReporteMovimientoDTO>> generarReporte(
-            @RequestParam String numeroCuenta,
+    public ResponseEntity<List<ReporteMovimientoDTO>> generarReporteByNombreCuenta(
+            @RequestParam String nombreCuenta,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin) {
 
-        List<ReporteMovimientoDTO> reporte = reporteService.generarReporte(numeroCuenta, fechaInicio, fechaFin);
+        List<ReporteMovimientoDTO> reporte = reporteService.generarReporte(nombreCuenta, fechaInicio, fechaFin);
         return ResponseEntity.ok(reporte);
     }
 }

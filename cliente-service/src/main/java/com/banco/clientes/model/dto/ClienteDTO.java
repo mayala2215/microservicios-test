@@ -13,4 +13,5 @@ public class ClienteDTO implements Serializable {
     private String evento;
     private Long id;
     private String nombre;
+    private Boolean estado;
 }

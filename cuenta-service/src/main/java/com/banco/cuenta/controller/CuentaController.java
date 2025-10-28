@@ -32,9 +32,9 @@ public class CuentaController {
     }
 
     @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<Cuenta> obtenerCuentaPorNombre(@PathVariable String nombre) {
-        Cuenta cuenta = cuentaRepository.findByClienteNombre(nombre);
-        if (cuenta == null) {
+    public ResponseEntity<List<Cuenta>> obtenerCuentaPorNombre(@PathVariable String nombre) {
+        List<Cuenta> cuenta = cuentaRepository.findByClienteNombre(nombre);
+        if (cuenta == null || cuenta.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cuenta);

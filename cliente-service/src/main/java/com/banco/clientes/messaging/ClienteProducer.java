@@ -20,7 +20,7 @@ public class ClienteProducer {
 
     public void enviarCliente(Cliente cliente) {
         try {
-            ClienteDTO clienteDTO = new ClienteDTO("CREAR", cliente.getId(), cliente.getNombre());
+            ClienteDTO clienteDTO = new ClienteDTO("CREAR", cliente.getId(), cliente.getNombre(), cliente.getEstado());
             String json = objectMapper.writeValueAsString(clienteDTO);
             rabbitTemplate.convertAndSend(
                     RabbitConfig.EXCHANGE_NAME,
@@ -36,7 +36,8 @@ public class ClienteProducer {
     public void enviarClienteActualizado(Cliente cliente) {
 
         try {
-            ClienteDTO clienteDTO = new ClienteDTO("ACTUALIZADO", cliente.getId(), cliente.getNombre());
+            ClienteDTO clienteDTO = new ClienteDTO("ACTUALIZADO", cliente.getId(), cliente.getNombre(),
+                    cliente.getEstado());
             String json = objectMapper.writeValueAsString(clienteDTO);
             rabbitTemplate.convertAndSend(
                     RabbitConfig.EXCHANGE_NAME,
@@ -45,6 +46,21 @@ public class ClienteProducer {
             log.info("JSON de actualización enviado: {}", json);
         } catch (Exception e) {
             log.error("Error enviando actualización de cliente", e);
+        }
+    }
+
+    public void enviarClienteEliminado(Cliente cliente) {
+        try {
+            ClienteDTO clienteDTO = new ClienteDTO("ELIMINADO", cliente.getId(), cliente.getNombre(),
+                    cliente.getEstado());
+            String json = objectMapper.writeValueAsString(clienteDTO);
+            rabbitTemplate.convertAndSend(
+                    RabbitConfig.EXCHANGE_NAME,
+                    RabbitConfig.ROUTING_KEY,
+                    json);
+            log.info("JSON de eliminación enviado: {}", json);
+        } catch (Exception e) {
+            log.error("Error enviando eliminación de cliente", e);
         }
     }
 }

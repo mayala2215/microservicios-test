@@ -1,6 +1,7 @@
 package com.banco.cuenta.controller;
 
 import com.banco.cuenta.model.Movimiento;
+import com.banco.cuenta.model.dto.MovimientoResponseDTO;
 import com.banco.cuenta.service.MovimientoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ public class MovimientoController {
     private MovimientoService movimientoService;
 
     @PostMapping
-    public ResponseEntity<Movimiento> registrar(@RequestParam String numeroCuenta,
+    public ResponseEntity<MovimientoResponseDTO> registrar(@RequestParam String numeroCuenta,
             @RequestParam String tipoMovimiento,
             @RequestParam Double valor) {
-        Movimiento mov = movimientoService.registrarMovimiento(numeroCuenta, tipoMovimiento, valor);
+        MovimientoResponseDTO mov = movimientoService.registrarMovimiento(numeroCuenta, tipoMovimiento, valor);
         return ResponseEntity.ok(mov);
     }
 

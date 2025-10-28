@@ -15,7 +15,7 @@ public interface CuentaService {
 
     void eliminarCuenta(String numeroCuenta);
 
-    Cuenta findByClienteNombre(String nombre);
+    List<Cuenta> findByClienteNombre(String nombre);
 
     Cuenta findById(Long idCliente);
 

@@ -26,7 +26,7 @@ public class ReporteServiceImpl implements ReporteService {
         LocalDateTime inicio = fechaInicio.atStartOfDay();
         LocalDateTime fin = fechaFin.plusDays(1).atStartOfDay();
 
-        List<Movimiento> movimientos = movimientoRepository.findByCuenta_NumeroCuentaAndFechaBetween(
+        List<Movimiento> movimientos = movimientoRepository.findByClienteAndFechaBetween(
                 cliente, inicio, fin);
 
         return movimientos.stream().map(mov -> {

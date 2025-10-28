@@ -14,9 +14,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Cuenta {
 
     @Id
-    @Column(name = "numero_cuenta", nullable = false, unique = true)
+    @Column(name = "numero_cuenta", nullable = false, length = 50, unique = true)
     private String numeroCuenta;
     private Long idCliente;
+    @Column(name = "tipo_cuenta", length = 20, nullable = false)
     private String tipoCuenta;
     private Double saldoInicial;
     private Boolean estado;

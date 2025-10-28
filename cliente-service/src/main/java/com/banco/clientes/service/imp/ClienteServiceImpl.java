@@ -4,6 +4,9 @@ import com.banco.clientes.model.Cliente;
 import com.banco.clientes.messaging.ClienteProducer;
 import com.banco.clientes.repository.ClienteRepository;
 import com.banco.clientes.service.ClienteService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 import com.banco.clientes.exception.CustomException;
 import org.springframework.http.HttpStatus;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
@@ -55,6 +59,13 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void eliminarCliente(Long id) {
-        clienteRepository.deleteById(id);
+        clienteRepository.findById(id).ifPresentOrElse(cliente -> {
+            clienteRepository.deleteById(id);
+            log.info("Cliente eliminado y notificación enviada: {}", cliente.getNombre());
+        }, () -> {
+            log.warn("No se encontró cliente con id {}", id);
+            throw new CustomException("Cliente no encontrado con id: " + id, HttpStatus.NOT_FOUND);
+        });
     }
+
 }
