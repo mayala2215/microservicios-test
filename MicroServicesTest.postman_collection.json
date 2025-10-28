@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "e1c6b782-bae6-4230-8eda-9a52a31acf6e",
+		"name": "MicroServicesTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20020624",
+		"_collection_link": "https://gold-crescent-979210.postman.co/workspace/API-TEST~afecef1c-37eb-420e-8c33-4ee629021b4b/collection/20020624-e1c6b782-bae6-4230-8eda-9a52a31acf6e?action=share&source=collection_link&creator=20020624"
+	},
+	"item": [
+		{
+			"name": "clientes",
+			"item": [
+				{
+					"name": "crearCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Moises Jesus Ayala\",\r\n  \"genero\": \"Masculino\",\r\n  \"edad\": 31,\r\n  \"identificacion\": \"2342153210205\",\r\n  \"direccion\": \"El paso\",\r\n  \"telefono\": \"32864964\",\r\n  \"contrasena\": \"151515\",\r\n  \"estado\": true\r\n}\r\n\r\n//Este proceso sube un estado para que el microservicio cuenta-service cree la cuenta\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{cliente-service}}/clientes"
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarCliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Moises Jesus Ayala\",\r\n  \"genero\": \"Masculino\",\r\n  \"edad\": 31,\r\n  \"identificacion\": \"2342153210205\",\r\n  \"direccion\": \"El paso\",\r\n  \"telefono\": \"32864964\",\r\n  \"contrasena\": \"17171717\",\r\n  \"estado\": false\r\n}\r\n\r\n//Este proceso sube un estado para que el microservicio cuenta-service actualice la cuenta\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{cliente-service}}/clientes/4"
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarCliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{cliente-service}}/clientes/5"
+					},
+					"response": []
+				},
+				{
+					"name": "listarCliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{cliente-service}}/clientes"
+					},
+					"response": []
+				},
+				{
+					"name": "listarClienteById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{cliente-service}}}/clientes/3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cuentas",
+			"item": [
+				{
+					"name": "listarCuentas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{cuenta-service}}/cuentas"
+					},
+					"response": []
+				},
+				{
+					"name": "cuentaByNombreCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{cuenta-service}}/cuentas/nombre/Jesus Ayala"
+					},
+					"response": []
+				},
+				{
+					"name": "cuentaByNumeroCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{cuenta-service}}/cuentas/AC-1761533698326"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movimientos",
+			"item": [
+				{
+					"name": "agregarMovimiento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Moises Ayala\",\r\n  \"genero\": \"Masculino\",\r\n  \"edad\": 31,\r\n  \"identificacion\": \"2342153210205\",\r\n  \"direccion\": \"El paso\",\r\n  \"telefono\": \"32864964\",\r\n  \"contrasena\": \"151515\",\r\n  \"estado\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cuenta-service}}/movimientos?numeroCuenta=AC-1761608143795&tipoMovimiento=Deposito&valor=600",
+							"host": [
+								"{{cuenta-service}}"
+							],
+							"path": [
+								"movimientos"
+							],
+							"query": [
+								{
+									"key": "numeroCuenta",
+									"value": "AC-1761608143795"
+								},
+								{
+									"key": "tipoMovimiento",
+									"value": "Deposito"
+								},
+								{
+									"key": "valor",
+									"value": "600"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reportes",
+			"item": [
+				{
+					"name": "generarReporteRangoByNombreCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cuenta-service}}/reportes?nombreCuenta=Jesus Ayala&fechaInicio=2025-10-01&fechaFin=2025-10-27",
+							"host": [
+								"{{cuenta-service}}"
+							],
+							"path": [
+								"reportes"
+							],
+							"query": [
+								{
+									"key": "nombreCuenta",
+									"value": "Jesus Ayala"
+								},
+								{
+									"key": "fechaInicio",
+									"value": "2025-10-01"
+								},
+								{
+									"key": "fechaFin",
+									"value": "2025-10-27"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "cliente-service",
+			"value": "http://127.0.0.1:8081/api",
+			"type": "string"
+		},
+		{
+			"key": "cuenta-service",
+			"value": "http://127.0.0.1:8082/api",
+			"type": "string"
+		}
+	]
+}
