@@ -10,7 +10,12 @@
 
 ## Descripción
 
-El microservicio **Cliente Service** se encarga de gestionar la información de los clientes bancarios.  
-Al crear un nuevo cliente, este servicio envía un mensaje a **RabbitMQ**, notificando a otros servicios (como `cuenta-service`) que se ha creado un nuevo registro.  
+El microservicio **Cliente Service** se encarga de gestionar la información de los **clientes bancarios**.  
+Además de manejar el CRUD de clientes, este servicio **envía mensajes a RabbitMQ** cada vez que se realiza una acción relevante.
 
-Esto permite que el sistema mantenga sincronizados los datos de clientes y cuentas en una arquitectura desacoplada basada en eventos.
+**Principales funciones:**
+
+- **CREAR:** cuando se registra un nuevo cliente.  
+- **ACTUALIZAR:** cuando se modifica la información de un cliente existente.  
+
+Estos eventos son consumidos por otros servicios (como `cuenta-service`) para mantener los datos sincronizados, logrando una **arquitectura desacoplada basada en eventos**.
